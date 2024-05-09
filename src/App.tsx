@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <h1 className="text-xl container text-center h-screen">Kurac moj</h1>
+      <h1 className="text-xl container text-center h-screen"></h1>
       <Footer />
     </>
   );

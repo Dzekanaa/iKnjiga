@@ -12,7 +12,7 @@ export default {
       },
       colors: {
         'text': '#061f32',
-        'background': '#eee7e2',
+        'background': '#ece3ca',
         'primary': '#24366a',
         'secondary': '#95bcda',
         'accent': '#74acd8',
@@ -40,5 +40,18 @@ export default {
   plugins: [
     require('daisyui'),
   ],
+  daisyui: {
+      themes: [
+      {
+        retro: {
+          ...require("daisyui/src/theming/themes")["retro"],
+          secondary: '#95bcda',
+          accent: '#74acd8',
+          neutral: '#3d4451',
+          text: '#061f32',
+        },
+      },
+    ],
+  }
 }
 
