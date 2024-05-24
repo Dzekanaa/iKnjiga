@@ -87,7 +87,7 @@ export const NavBar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <NavLink className={"btn btn-primary"} to={"/"}>
+            <NavLink className={"btn btn-primary"} to={"/prijava"}>
               Prijavi se!
             </NavLink>
           </div>

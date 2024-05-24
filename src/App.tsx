@@ -1,5 +1,5 @@
 import { NavBar, Footer, NotFound } from "./layout";
-import { Home, MyLibrary, Profile } from "./pages";
+import { Home, MyLibrary, LogIn, Profile } from "./pages";
 import {
   createBrowserRouter,
   Route,
@@ -22,8 +22,9 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
-      <Footer />
+      {/* <RouterProvider router={router} />
+      <Footer /> */}
+      <LogIn />
     </>
   );
 }

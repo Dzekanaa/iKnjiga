@@ -45,7 +45,7 @@ export default {
       {
         retro: {
           ...require("daisyui/src/theming/themes")["retro"],
-          'primary': '#3d4451',
+          'primary': '#24366a',
           'primary-content':'#ece3ca', 
           'secondary': '#95bcda',
           'secondary-content': '#061f32',

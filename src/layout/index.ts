@@ -1,3 +1,3 @@
 export {Footer} from './Footer'
 export {NavBar} from './NavBar'
-export {NotFound} from './NotFound'
+export {NotFound} from '../pages/NotFound'

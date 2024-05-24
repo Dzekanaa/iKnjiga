@@ -1,0 +1,97 @@
+import { Link } from "react-router-dom";
+
+export const LogIn = () => {
+  return (
+    <>
+      <div
+        className="bg-no-repeat bg-cover bg-center relative"
+        style={{
+          backgroundImage:
+            "url(https://images.alphacoders.com/132/1326370.png)",
+        }}
+      >
+        <div className="absolute bg-gradient-to-b from-primary to-text opacity-75 inset-0 z-0"></div>
+        <div className="min-h-screen flex flex-row mx-0 justify-center">
+          <div className="flex justify-center self-center z-10">
+            <div className="p-12 bg-background mx-auto shadow-md shadow-primary rounded-2xl">
+              <div className="mb-4 text-center space-y-2">
+                <h3 className="font-semibold text-2xl text-primary">
+                  Prijavi se
+                </h3>
+                <p className="text-gray-500">
+                  Molimo vas da se prijavite na svoj nalog.
+                </p>
+              </div>
+              <form className="space-y-5 pt-4">
+                <div className=" form-control">
+                  <span className="label-text mb-2 text-text">Email</span>
+                  <label className="input input-bordered flex items-center gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="#24366a"
+                      className="w-4 h-4 opacity-70"
+                    >
+                      <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+                      <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+                    </svg>
+                    <input
+                      type="text"
+                      className="grow"
+                      placeholder="mail@gmail.com"
+                    />
+                  </label>
+                </div>
+
+                <div className=" form-control">
+                  <span className="label-text mb-2 text-text">Lozinka</span>
+                  <label className="input input-bordered flex items-center gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="#24366a"
+                      className="w-4 h-4 opacity-70"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <input type="password" className="grow" value="password" />
+                  </label>
+                  <label className="label">
+                    <a
+                      href="#"
+                      className=" label-text link-primary link link-hover"
+                    >
+                      Zaboravljena lozinka?
+                    </a>
+                  </label>
+                </div>
+
+                <div className="form-control">
+                  <button className="btn btn-primary">Prijavi se</button>
+                </div>
+              </form>
+              <div className="pt-5 text-center text-gray-400 text-xs">
+                <span>
+                  Copyright © 2024{" "}
+                  <a
+                    href="https://github.com/Dzekanaa"
+                    rel=""
+                    target="_blank"
+                    title="Dzektor"
+                    className="hover:text-accent"
+                  >
+                    Nikola Pešić
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
