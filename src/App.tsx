@@ -6,12 +6,14 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+import { homeLoader } from "./pages/Home";
+import { AuthProvider } from "./context/AuthContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<NavBar />}>
-        <Route index element={<Home />} />
+        <Route index element={<Home />} loader={homeLoader} />
         <Route path="profile" element={<Profile />} />
         <Route path="mylibrary" element={<MyLibrary />} />
       </Route>
@@ -25,8 +27,10 @@ const router = createBrowserRouter(
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
-      {/* <Footer /> */}
+      <AuthProvider>
+        <RouterProvider router={router} />
+        {/* <Footer /> */}
+      </AuthProvider>
     </>
   );
 }

@@ -3,6 +3,17 @@ import axios from "axios";
 
 axios.defaults.withCredentials =true;
 
+export const getUser = async (id: number | null) => {
+    try {
+        const res = await axios.post("http://localhost:8801/user", { id });
+        return res.data;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+};
+
+
 export const handleRegistration = async (username:string, email:string, password:string) => {
     try {
         const res = await axios.post("http://localhost:8801/register", { username, email, password });

@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import axios from "axios";
 import { handleRegistration } from "../services";
 
 export const Register = () => {
@@ -32,7 +31,7 @@ export const Register = () => {
     if (res.Status === "Success") {
       navigate("/");
     } else {
-      alert("Došlo je do greške prilikom registracije.");
+      alert(res.Error);
     }
   };
 

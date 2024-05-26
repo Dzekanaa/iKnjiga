@@ -41,9 +41,12 @@ const verifyUser = (req, res, next) => {
     }
 }
 
-app.get('/', verifyUser,(res, req) => {
-    return res.json({Status: 'Success', id: req.id});
-})
+app.get('/', verifyUser, (req, res) => {
+    const userId = Number(req.id); 
+    return res.json({ Status: 'Success', id: userId });
+});
+
+
 
 app.post('/register', (req, res) => {
     const sql = 'INSERT INTO korisnici(Username, Email, Password) VALUES (?)';
@@ -62,10 +65,31 @@ app.post('/register', (req, res) => {
             if (err) {
                 return res.json({ Error: 'Error while inserting data' })
             }
-            return res.json({ Status: 'Success' })
+            const id = result.insertId; // Assuming KorisnikID is auto-incremented
+            const token = jwt.sign({ id }, 'jwt-kljuc', { expiresIn: '1d' });
+            res.cookie('token', token);
+
+            return res.json({ Status: 'Success'});
         })
     });
 })
+
+app.post('/user', verifyUser, (req, res) => {
+    const userId = req.body.id;
+    const sql = 'SELECT * FROM korisnici WHERE KorisnikID = ?';
+    db.query(sql, [userId], (err, data) => {
+        if (err) {
+            return res.json({ Error: 'Get User Error in server' });
+        }
+
+        if (data.length > 0) {
+            return res.json({ Status: 'Success', user: data[0] });
+        } else {
+            return res.json({ Error: 'User not found' });
+        }
+    });
+});
+
 
 
 app.post('/login', (req, res) => {
