@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Link, Outlet } from "react-router-dom";
 
 export const NavBar = () => {
   return (
@@ -87,9 +87,9 @@ export const NavBar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <NavLink className={"btn btn-primary"} to={"/prijava"}>
+            <Link className={"btn btn-primary"} to={"/register"}>
               Prijavi se!
-            </NavLink>
+            </Link>
           </div>
         </div>
       </div>

@@ -15,11 +15,7 @@ export const NotFound = () => {
           ćete pronaći puno zanimljivih sadržaja.
         </p>
         <div className="flex justify-center gap-4 text-center items-center">
-          <Link
-            to={-1 as any}
-            replace={true}
-            className="btn btn-outline btn-primary"
-          >
+          <Link to={-1 as any} replace className="btn btn-outline btn-primary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
