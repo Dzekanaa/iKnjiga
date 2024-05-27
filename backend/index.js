@@ -46,33 +46,111 @@ app.get('/', verifyUser, (req, res) => {
     return res.json({ Status: 'Success', id: userId });
 });
 
+app.get('/books', (req, res) => {
+    const sql = 'SELECT * FROM knjige ORDER BY RAND() LIMIT 12';
+    db.query(sql, (err, data) => {
+        if (err) {
+            return res.json({ Error: 'Get Books Error in server' });
+        }
+        if (data.length > 0) {
+            return res.json({ Status: 'Success', books: data });
+        } else {
+            return res.json({ Error: 'Books not found' });
+        }
+    });
+})
+
+app.get('/mybooks', verifyUser, (req, res) => {
+    const korisnikID = req.id;
+
+    const sql = `
+        SELECT k.* 
+        FROM BibliotekaKnjige bk 
+        JOIN Knjige k ON bk.KnjigaID = k.KnjigaID 
+        WHERE bk.LicnaBibliotekaID = (
+            SELECT LicnaBibliotekaID 
+            FROM LicneBiblioteke 
+            WHERE KorisnikID = ?
+        )
+    `;
+
+    db.query(sql, [korisnikID], (err, data) => {
+        if (err) {
+            return res.status(500).json({ Error: 'Get Books Error in server' });
+        }
+        if (data.length > 0) {
+            return res.status(200).json({ Status: 'Success', books: data });
+        } else {
+            return res.status(404).json({ Error: 'Books not found' });
+        }
+    });
+});
+
+
+app.post('/addbook', verifyUser, (req, res) => {
+    const korisnikID = req.id; 
+    const knjigaID = req.body.knjigaID; 
+    
+    const sqlInsertBook = 'INSERT INTO BibliotekaKnjige (LicnaBibliotekaID, KnjigaID) VALUES (?, ?)';
+    
+    db.query('SELECT LicnaBibliotekaID FROM LicneBiblioteke WHERE KorisnikID = ?', [korisnikID], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error while fetching user library' });
+        }
+        
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'User library not found' });
+        }
+        
+        const licnaBibliotekaID = results[0].LicnaBibliotekaID;
+        
+        db.query(sqlInsertBook, [licnaBibliotekaID, knjigaID], (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: 'Error while adding book to library' });
+            }
+            
+            return res.status(200).json({ message: 'Book added to library successfully' });
+        });
+    });
+});
 
 
 app.post('/register', (req, res) => {
-    const sql = 'INSERT INTO korisnici(Username, Email, Password) VALUES (?)';
+    const sqlInsertUser = 'INSERT INTO Korisnici(Username, Email, Password) VALUES (?)';
+    const sqlCreateLibrary = 'INSERT INTO LicneBiblioteke(KorisnikID) VALUES (?)';
+
     bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
         if (err) {
             return res.json({ Error: 'Error while hashing password' })
         }
 
-        const values = [
+        const userValues = [
             req.body.username,
             req.body.email,
             hash
         ];
 
-        db.query(sql, [values], (err, result) => {
+        db.query(sqlInsertUser, [userValues], (err, result) => {
             if (err) {
-                return res.json({ Error: 'Error while inserting data' })
+                return res.json({ Error: 'Error while inserting user data' })
             }
-            const id = result.insertId; // Assuming KorisnikID is auto-incremented
-            const token = jwt.sign({ id }, 'jwt-kljuc', { expiresIn: '1d' });
-            res.cookie('token', token);
+            
+            const userId = result.insertId;
 
-            return res.json({ Status: 'Success'});
-        })
+            db.query(sqlCreateLibrary, [[userId]], (err, libraryResult) => {
+                if (err) {
+                    return res.json({ Error: 'Error while creating user library' })
+                }
+                
+                const token = jwt.sign({ id: userId }, 'jwt-kljuc', { expiresIn: '1d' });
+                res.cookie('token', token);
+
+                return res.json({ Status: 'Success', UserId: userId });
+            });
+        });
     });
-})
+});
+
 
 app.post('/user', verifyUser, (req, res) => {
     const userId = req.body.id;

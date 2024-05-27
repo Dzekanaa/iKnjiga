@@ -4,7 +4,7 @@ import { getUser, handleLogout } from "../services";
 import { useEffect, useState } from "react";
 
 export const NavBar = () => {
-  const { auth, id, setAuthState } = useAuth();
+  const { auth, id } = useAuth();
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
@@ -27,7 +27,6 @@ export const NavBar = () => {
       try {
         const res = await getUser(id);
         if (res && res.Status === "Success") {
-          console.log(res.user);
           setUsername(res.user.Username);
         } else if (res && res.Error) {
           console.error(res.Error);
@@ -116,7 +115,7 @@ export const NavBar = () => {
           </div>
           <div className="navbar-end menu menu-horizontal">
             {auth ? (
-              <li className="relative">
+              <li className="relative z-20">
                 <details>
                   <summary className="text-lg text-text cursor-pointer">
                     {username}
@@ -135,7 +134,7 @@ export const NavBar = () => {
                         >
                           <path
                             stroke="currentColor"
-                            stroke-width="2"
+                            strokeWidth="2"
                             d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                           />
                         </svg>
@@ -156,9 +155,9 @@ export const NavBar = () => {
                         >
                           <path
                             stroke="currentColor"
-                            stroke-linecap="square"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="square"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                           />
                         </svg>
@@ -179,9 +178,9 @@ export const NavBar = () => {
                         >
                           <path
                             stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                           />
                         </svg>
@@ -202,9 +201,9 @@ export const NavBar = () => {
                         >
                           <path
                             stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"
                           />
                         </svg>
@@ -224,7 +223,7 @@ export const NavBar = () => {
         </div>
       </div>
 
-      <main className="text-xl h-[90vh] flex justify-center items-center container text-center">
+      <main className="text-xl h-[92vh] flex justify-center items-center text-center">
         <Outlet />
       </main>
     </>
